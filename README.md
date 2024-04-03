@@ -8,9 +8,9 @@ JANA Shop is an online marketplace with categorized product listings where custo
 | Student name          | Student ID      |
 |-----------------------|-----------------|
 | Suleimenova Zhasmin   | 22B030444       |
-| Taimas Ayazhan        | 22B030447       |
+| Shapkat Ernur         | 22B030465       |
 | Taubaev Azamat        | 22B030450       |
-| Tulepbergen Nurkhan   | 22B030455       |
+
 
 ## Description
 

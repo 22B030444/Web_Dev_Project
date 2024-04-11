@@ -78,4 +78,3 @@ This document provides an overview of the API endpoints and their functionalitie
   - **Response**:
     - User object containing user details.
 
-

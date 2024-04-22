@@ -26,7 +26,6 @@ class Folder(models.Model):
         # Другие типы папок
     ]
     folder_type = models.CharField(max_length=10, choices=folder_type_choices)
-    # Дополнительные поля и методы
 
 class Attachment(models.Model):
     file = models.FileField(upload_to='attachments/')

@@ -12,7 +12,7 @@ class MailboxAdmin(admin.ModelAdmin):
 class FolderAdmin(admin.ModelAdmin):
     list_display = ['name', 'mailbox', 'folder_type']
     search_fields = ['name', 'mailbox__user__username']
-    list_filter = ['folder_type', 'mailbox']
+    list_filter = ['folder_type']
 
 
 @admin.register(Message)

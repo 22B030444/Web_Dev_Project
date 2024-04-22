@@ -35,3 +35,28 @@ class FolderSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Folder
         fields = '__all__'
+
+class UserSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    username = serializers.CharField(max_length=150)
+    email = serializers.EmailField()
+
+    def create(self, validated_data):
+        """
+        Create and return a new User instance, given the validated data.
+        """
+        return models.User.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing User instance, given the validated data.
+        """
+        instance.username = validated_data.get('username', instance.username)
+        instance.email = validated_data.get('email', instance.email)
+        instance.save()
+        return instance
+
+class AttachmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Attachment
+        fields = '__all__'

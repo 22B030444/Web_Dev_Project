@@ -1,5 +1,8 @@
-from rest_framework import serializers
 from . import models
+from rest_framework import serializers
+from .models import Folder
+from django.contrib.auth.models import User
+
 
 
 class MessageSerializer(serializers.Serializer):
@@ -20,6 +23,29 @@ class MessageSerializer(serializers.Serializer):
         instance.sender = validated_data.get('sender', instance.sender)
         instance.recipient = validated_data.get('recipient', instance.recipient)
         instance.read = validated_data.get('read', instance.read)
+        instance.save()
+        return instance
+
+
+class FolderSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)  # Поле только для чтения
+    name = serializers.CharField(max_length=100)  # Название папки
+    user = serializers.PrimaryKeyRelatedField(queryсет=User.objects.all())  # Ссылка на пользователя
+    folder_type = serializers.ChoiceField(choices=[
+        ('INBOX', 'Inbox'),
+        ('SENT', 'Sent'),
+        ('DRAFTS', 'Drafts'),
+    ])  # Тип папки
+
+    def create(self, validated_data):
+        """Создание нового объекта `Folder`"""
+        return Folder.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """Обновление существующего объекта `Folder`"""
+        instance.name = validated_data.get('name', instance.name)
+        instance.user = validated_data.get('user', instance.user)
+        instance.folder_type = validated_data.get('folder_type', instance.folder_type)
         instance.save()
         return instance
 

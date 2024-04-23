@@ -1,0 +1,12 @@
+<div>
+  <h1>Inbox</h1>
+  <ul>
+    <li *ngFor="let message of inbox" (click)="goToReadMail(message.id)">
+      <span>{{ message.subject }}</span>
+      <span>{{ message.sender }}</span>
+    </li>
+  </ul>
+  <button (click)="goToCompose()">Compose</button>
+  <button (click)="goToFolders()">Folders</button>
+  <button (click)="goToAttachments()">Attachments</button>
+</div>

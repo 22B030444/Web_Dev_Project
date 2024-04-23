@@ -13,5 +13,7 @@ urlpatterns = [
     path('mailbox/folders/<int:pk>/', folder_detail, name='folder_detail'),  # Детали папки, обновление и удаление
     path('mailbox/attachments/', attachment_list, name='attachment_list_create'),  # Список и создание вложений
     path('mailbox/attachments/<int:pk>/', attachment_detail, name='attachment_detail'),  # Детали вложения, обновление и удаление
+    # path('api/users/', UserListView.as_view(), name='user-list'),
+    # path('api/users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
 ]
 

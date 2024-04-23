@@ -10,6 +10,7 @@ class MailboxAdmin(admin.ModelAdmin):
 @admin.register(Folder)
 class FolderAdmin(admin.ModelAdmin):
     list_display = ('name', 'mailbox', 'user', 'folder_type')
+    search_fields = ['name', 'mailbox__user__username']
     list_filter = ('folder_type', 'user')
 
 @admin.register(Message)
@@ -17,6 +18,7 @@ class MessageAdmin(admin.ModelAdmin):
     list_display = ('subject', 'folder', 'sender', 'recipient', 'sent_at', 'read')
     search_fields = ('subject', 'sender__username', 'recipient__username')
     list_filter = ('sent_at', 'read')
+    date_hierarchy = 'sent_at'
 
 @admin.register(Attachment)
 class AttachmentAdmin(admin.ModelAdmin):

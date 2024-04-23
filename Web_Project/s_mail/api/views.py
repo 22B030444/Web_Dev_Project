@@ -43,9 +43,37 @@ from .serializer import MessageSerializer, MailboxSerializer, FolderSerializer, 
 #             serializer.save()
 #             return Response({'message': 'Message successfully edited'}, status=status.HTTP_200_OK)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class LoginView(APIView):
+#     def post(self, request):
+#
+#
+# # Implement user authentication logic and return authentication token
+#
+# class LogoutView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#
+#     def post(self, request):
+#
+#
+# # Implement user logout logic and invalidate authentication token
+# class UserListView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#
+#     def get(self, request):
+#
+# # Implement logic to retrieve list of users and serialize them
+#
+# class UserDetailView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#
+#     def get(self, request, pk):
+#
+# # Implement logic to retrieve details of a specific user by ID and serialize it
 class InboxListView(APIView):
     def get(self, request):
-        messages = Message.objects.filter(recipient=request.user)
+        messages = Message.objects.filter(recipient=request.user
+                                          )
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
 

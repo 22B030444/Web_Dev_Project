@@ -1,6 +1,5 @@
 from rest_framework.authtoken.models import Token
 
-
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
@@ -15,7 +14,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Mailbox, Message, Attachment, Folder
-from .serializer import MessageSerializer, MailboxSerializer, FolderSerializer, AttachmentSerializer
+from .serializer import MessageSerializer, MailboxSerializer, FolderSerializer, AttachmentSerializer, UserSerializer
 
 
 # class MessageView(APIView):
@@ -241,6 +240,7 @@ class UserLoginView(APIView):
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
 
+
 # Example view for user logout (deleting the token)
 class UserLogoutView(APIView):
     authentication_classes = [TokenAuthentication]
@@ -248,3 +248,25 @@ class UserLogoutView(APIView):
     def post(self, request):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+class UserListView(APIView):
+
+    def get(self, request):
+        # Retrieve list of users
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+
+class UserDetailView(APIView):
+
+    def get(self, request, pk):
+        # Retrieve user details by ID
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user)
+        return Response(serializer.data)

@@ -1,12 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'; // Если вы планируете использовать HTTP запросы
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// Импортируйте все компоненты, которые вы создали
-
-// Импортируйте сервисы, если они есть
 import {MailboxComponent} from "../mailbox/mailbox.component";
 import {MailsComponent} from "../mails/mails.component";
 import {ReadMailsComponent} from "../read-mails/read-mails.component";
@@ -17,6 +13,8 @@ import {MailService} from "../mail.service";
 import {LoginComponent} from "../login/login.component";
 import {FormsModule} from "@angular/forms";
 import {AuthInterceptor} from "../authinterceptor";
+import {LogoutComponent} from "../logout/logout.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -27,7 +25,8 @@ import {AuthInterceptor} from "../authinterceptor";
     ComposeMailsComponent,
     FoldersComponent,
     AttachmentsComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
 
   ],
   imports: [
@@ -35,6 +34,7 @@ import {AuthInterceptor} from "../authinterceptor";
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    RouterModule
     // Если вы планируете использовать HTTP запросы
   ],
   providers: [

@@ -1,20 +1,15 @@
-<!--<div class="container">-->
-<!--  <h1>Welcome to My Application</h1>-->
-<!--  <div *ngIf="!isLoggedIn; else loggedInTemplate">-->
-<!--    <app-login (login)="onLogin($event)"></app-login>-->
-<!--  </div>-->
-<!--  <ng-template #loggedInTemplate>-->
-<!--    <h2>You are logged in!</h2>-->
-<!--    &lt;!&ndash; Add your authenticated content here &ndash;&gt;-->
-<!--  </ng-template>-->
-<!--</div>-->
-
-<!--<div class="body">-->
-<!--  <div class="login" *ngIf="!is_logged">-->
-<!--    <h1>Student Mail</h1>-->
-<!--    <h2>Please login!</h2>-->
-<!--    <p>Username: <input type="text" [(ngModel)]="username" /></p>-->
-<!--    <p>Password: <input type="password" [(ngModel)]="pswd" /></p>-->
-<!--    <button class="btn_in" (click)="login()">Login</button>-->
-<!--  </div>-->
-<!--</div>-->
+<div>
+  <h1>{{ title }}</h1>
+  <!-- Your navigation bar or menu can go here -->
+  <nav>
+    <ul>
+      <li><a routerLink="/inbox">Inbox</a></li>
+      <li><a routerLink="/compose">Compose</a></li>
+      <li><a routerLink="/folders">Folders</a></li>
+      <li><a routerLink="/profile">Profile</a></li>
+      <!-- Add more links as needed -->
+    </ul>
+  </nav>
+  <!-- Router outlet for displaying different components based on route -->
+<!--  <router-outlet></router-outlet>-->
+</div>

@@ -1,47 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {MailService} from "../mail.service";
-import {Message} from "../message";
-import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-mailbox',
-  // standalone: true,
-  // imports: [],
   templateUrl: './mailbox.component.html',
-  styleUrl: './mailbox.component.css'
+  styleUrls: ['./mailbox.component.css']
 })
-export class MailboxComponent implements OnInit{
-  inbox: Message[] = [];
+export class MailboxComponent implements OnInit {
 
-  constructor(private router: Router, private mailService: MailService) { }
+  mailboxData: any; // Define a variable to store mailbox data
+
+  constructor(private mailboxService: MailService) { }
 
   ngOnInit(): void {
-    this.loadInbox();
+    // Call the method to fetch mailbox data when the component initializes
+    this.getMailboxData();
+  }
+//   getMailbox(): void {
+//   this.mailboxService.getMailbox().subscribe(
+//     mailbox => {
+//       console.log('Mailbox data:', mailbox);
+//       // Handle the response data here, such as displaying it in the UI
+//     },
+//     error => {
+//       console.error('Error fetching mailbox data:', error);
+//       // Handle the error, such as displaying an error message to the user
+//     }
+//   );
+// }
+  getMailboxData(): void {
+    // Call the service method to fetch mailbox data
+    this.mailboxService.getMailbox()
+      .subscribe(
+        (data) => {
+          // Assign the fetched data to the mailboxData variable
+          this.mailboxData = data;
+        },
+        (error) => {
+          console.error('Error fetching mailbox data:', error);
+          // Handle error here, e.g., show an error message to the user
+        }
+      );
   }
 
-  loadInbox() {
-    this.mailService.getInbox().subscribe(data => {
-      this.inbox = data;
-    });
-  }
-
-  goToReadMail(id: number) {
-    this.router.navigate(['/read', id]);
-  }
-
-  goToCompose() {
-    this.router.navigate(['/compose']);
-  }
-
-  goToFolders() {
-    this.router.navigate(['/folders']);
-  }
-
-  goToAttachments() {
-    this.router.navigate(['/attachments']);
-  }
 }
-
-
-
-

@@ -9,7 +9,6 @@ import {MailsComponent} from "../mails/mails.component";
 import {LoginComponent} from "../login/login.component";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/mailbox', pathMatch: 'full' },
   { path: 'mails', component: MailsComponent },
   { path: 'read/:id', component: ReadMailsComponent },
   { path: 'compose', component: ComposeMailsComponent },

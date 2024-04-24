@@ -1,12 +1,20 @@
+from rest_framework.authtoken.models import Token
+
+
 from django.shortcuts import render
 from rest_framework import viewsets, status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from .models import User,Mailbox,Message,Attachment,Folder
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import User, Mailbox, Message, Attachment, Folder
 from .serializer import MessageSerializer, MailboxSerializer, FolderSerializer, AttachmentSerializer
 
 
@@ -77,6 +85,7 @@ class InboxListView(APIView):
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
 
+
 class ComposeView(APIView):
 
     def post(self, request):
@@ -86,9 +95,11 @@ class ComposeView(APIView):
             return Response({'Message sent successfully': serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class MessageDetailView(APIView):
     def get_object(self, pk=None):
         message = get_object_or_404(Message, pk=pk)
+
     def get(self, request, pk):
         message = self.get_object(pk)
         serializer = MessageSerializer(message)
@@ -136,6 +147,7 @@ class MailboxView(APIView):
             'attachments': attachments_serializer.data
         })
 
+
 @api_view(['GET', 'POST'])
 def folder_list(request):
     if request.method == 'GET':
@@ -149,6 +161,7 @@ def folder_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def folder_detail(request, pk):
@@ -169,6 +182,7 @@ def folder_detail(request, pk):
         folder.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['GET', 'POST'])
 def attachment_list(request):
     if request.method == 'GET':
@@ -182,6 +196,7 @@ def attachment_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def attachment_detail(request, pk):
@@ -201,3 +216,35 @@ def attachment_detail(request, pk):
     elif request.method == 'DELETE':
         attachment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserLoginView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = TokenObtainPairSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Retrieve username from request data
+        username = request.data.get('username')
+
+        if not username:
+            return Response({'error': 'Username not provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Retrieve user object using username
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
+
+# Example view for user logout (deleting the token)
+class UserLogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+
+    def post(self, request):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)

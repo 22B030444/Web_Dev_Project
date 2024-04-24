@@ -1,4 +1,4 @@
-from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from django.shortcuts import render
 from rest_framework import viewsets, status
@@ -118,7 +118,37 @@ class MessageDetailView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# class MailboxView(APIView):
+#     def get(self, request):
+#         user = request.user
+#
+#         # Retrieve the user's mailbox, handle DoesNotExist exception gracefully
+#         try:
+#             mailbox = Mailbox.objects.get(user=user)
+#         except Mailbox.DoesNotExist:
+#             raise NotFound("Mailbox does not exist for the current user.")
+#
+#         # Retrieve all folders associated with the user's mailbox in a single query
+#         folders = Folder.objects.filter(mailbox=mailbox)
+#         folder_serializer = FolderSerializer(folders, many=True)
+#
+#         # Retrieve all messages associated with the user's mailbox in a single query
+#         messages = Message.objects.filter(folder__in=folders)
+#         message_serializer = MessageSerializer(messages, many=True)
+#
+#         attachments = Attachment.objects.filter(message__in=messages)
+#         attachments_serializer = AttachmentSerializer(attachments, many=True)
+#
+#         return Response({
+#             'mailbox': MailboxSerializer(mailbox).data,
+#             'folders': folder_serializer.data,
+#             'messages': message_serializer.data,
+#             'attachments': attachments_serializer.data
+#         })
+
 class MailboxView(APIView):
+    permission_classes = IsAuthenticated  # Require authentication for this view
+
     def get(self, request):
         user = request.user
 
@@ -145,7 +175,6 @@ class MailboxView(APIView):
             'messages': message_serializer.data,
             'attachments': attachments_serializer.data
         })
-
 
 @api_view(['GET', 'POST'])
 def folder_list(request):
@@ -248,6 +277,10 @@ class UserLogoutView(APIView):
     def post(self, request):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)
+
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    pass
 
 
 class UserListView(APIView):

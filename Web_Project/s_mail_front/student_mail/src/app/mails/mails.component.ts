@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MailService} from "../mail.service";
-import {Message} from "../message";
+import {MailService} from "../services/mail.service";
+import {Message} from "../models/message";
 
 @Component({
   selector: 'app-mails',

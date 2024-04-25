@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MailService} from "../mail.service";
+import {MailService} from "../services/mail.service";
 
 
 @Component({

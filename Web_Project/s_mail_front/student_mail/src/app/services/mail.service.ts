@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
-import { Message } from "./message";
-import { Attachment } from "./attachment";
-import { Folder } from "./folder";
+import { Message } from "../models/message";
+import { Attachment } from "../models/attachment";
+import { Folder } from "../models/folder";
 
 
 @Injectable({

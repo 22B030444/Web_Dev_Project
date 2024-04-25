@@ -1,12 +1,16 @@
-<div>
-  <h1>Inbox</h1>
-  <ul>
-    <li *ngFor="let message of inbox" (click)="goToReadMail(message.id)">
-      <span>{{ message.subject }}</span>
-      <span>{{ message.sender }}</span>
-    </li>
-  </ul>
-  <button (click)="goToCompose()">Compose</button>
-  <button (click)="goToFolders()">Folders</button>
-  <button (click)="goToAttachments()">Attachments</button>
-</div>
+<!--<div class="mailbox-container">-->
+<!--  <h1>Welcome to Your Mailbox</h1>-->
+<!--  <div *ngIf="mailboxData && mailboxData.length > 0; else noMails">-->
+<!--    <ul>-->
+<!--      <li *ngFor="let mail of mailboxData">-->
+<!--        <a [routerLink]="['/read', mail.id]">-->
+<!--          <span>{{ mail.sender }}</span>-->
+<!--          <span>{{ mail.subject }}</span>-->
+<!--        </a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--  <ng-template #noMails>-->
+<!--    <p>No mails available.</p>-->
+<!--  </ng-template>-->
+<!--</div>-->

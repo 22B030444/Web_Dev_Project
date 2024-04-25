@@ -17,18 +17,7 @@ export class MailboxComponent implements OnInit {
     // Call the method to fetch mailbox data when the component initializes
     this.getMailboxData();
   }
-//   getMailbox(): void {
-//   this.mailboxService.getMailbox().subscribe(
-//     mailbox => {
-//       console.log('Mailbox data:', mailbox);
-//       // Handle the response data here, such as displaying it in the UI
-//     },
-//     error => {
-//       console.error('Error fetching mailbox data:', error);
-//       // Handle the error, such as displaying an error message to the user
-//     }
-//   );
-// }
+
   getMailboxData(): void {
     // Call the service method to fetch mailbox data
     this.mailboxService.getMailbox()

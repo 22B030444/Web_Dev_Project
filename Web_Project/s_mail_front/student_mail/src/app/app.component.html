@@ -1,15 +1,14 @@
-<div>
-  <h1>{{ title }}</h1>
-  <!-- Your navigation bar or menu can go here -->
+<header>
   <nav>
-    <ul>
-      <li><a routerLink="/inbox">Inbox</a></li>
-      <li><a routerLink="/compose">Compose</a></li>
-      <li><a routerLink="/folders">Folders</a></li>
-      <li><a routerLink="/profile">Profile</a></li>
-      <!-- Add more links as needed -->
-    </ul>
+    <!-- Your navigation links go here -->
+    <a routerLink="/mailbox">Mailbox</a>
+    <a routerLink="/compose">Compose</a>
+    <a routerLink="/folders">Folders</a>
+    <a routerLink="/attachments">Attachments</a>
+    <a routerLink="/login">Login</a>
   </nav>
-  <!-- Router outlet for displaying different components based on route -->
-<!--  <router-outlet></router-outlet>-->
-</div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -1,0 +1,20 @@
+header {
+  background-color: #007bff;
+  padding: 10px;
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+main {
+  margin-top: 20px;
+}

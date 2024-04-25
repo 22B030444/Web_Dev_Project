@@ -18,25 +18,29 @@ import {FormsModule} from "@angular/forms";
 // import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MailboxComponent,
-    MailsComponent,
-    ReadMailsComponent,
-    ComposeMailsComponent,
-    FoldersComponent,
-    AttachmentsComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    MailService
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        MailboxComponent,
+        MailsComponent,
+        ReadMailsComponent,
+        ComposeMailsComponent,
+        FoldersComponent,
+        AttachmentsComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        RouterModule
+    ],
+    providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        MailService
+    ],
+    exports: [
+        MailboxComponent
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

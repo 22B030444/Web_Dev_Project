@@ -1,0 +1,7 @@
+<div class="single-vacancy" *ngIf="mail">
+  <li class="vacancy-item" (click)="viewMail(mail)">
+    <h2>Title:{{ mail.subject | titlecase }}</h2>
+    <p>Body:{{ mail.body}}</p>
+    <p>Sender: {{ mail.sender }}</p>
+  </li>
+</div>

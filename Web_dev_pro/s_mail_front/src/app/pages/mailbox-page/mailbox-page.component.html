@@ -1,0 +1,9 @@
+<div class="main">
+  <h2>Mails</h2>
+  <section id="available-vacancies">
+    <p *ngIf="loading">Loading...</p>
+    <div class="vacancies" *ngIf="messages">
+      <app-mail *ngFor="let mails of messages" [mail]="mails"></app-mail>
+    </div>
+  </section>
+</div>

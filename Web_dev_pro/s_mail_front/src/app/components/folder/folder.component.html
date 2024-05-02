@@ -1,0 +1,7 @@
+<div class="single-vacancy" *ngIf="folders">
+  <li class="vacancy-item" (click)="viewFolder(folders)">
+    <h2>{{ folders.name | titlecase }}</h2>
+    <p>{{ folders.folderType}}</p>
+    <p> {{ folders.user }}</p>
+  </li>
+</div>
